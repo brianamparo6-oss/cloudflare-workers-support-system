@@ -1,0 +1,24 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "support-api",
+	"main": "src/index.js",
+	"compatibility_date": "2026-08-22",
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+	"triggers": {
+		"crons": ["0 * * * *"]
+	},
+	"vars": {
+		"SUPPORT_EMAIL": "help@brianamparo.dev",
+		"MAX_TICKETS": "100"
+	},
+	"d1_databases": [
+		{
+			"binding": "support_db",
+			"database_name": "support-db",
+			"database_id": "dd7a8bf8-9db5-465a-8ecb-c94ec1ffa597"
+		}
+	]
+}

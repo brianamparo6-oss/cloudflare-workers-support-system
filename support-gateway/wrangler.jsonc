@@ -1,0 +1,19 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "support-gateway",
+	"main": "src/index.js",
+	"compatibility_date": "2026-08-22",
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			"binding": "SUPPORT_API",
+			"service": "support-api"
+		}
+	]
+}

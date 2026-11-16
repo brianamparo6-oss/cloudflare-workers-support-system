@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cloudflare Support Help Center</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    input, textarea, button { width: 100%; margin: 0.5rem 0; padding: 0.6rem; box-sizing: border-box; }
+    button { background: #f6821f; color: white; border: none; font-weight: bold; cursor: pointer; }
+    pre { background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Support Help Center</h1>
+  <h3>Submit a Ticket</h3>
+  <input id="name" placeholder="Your Name" />
+  <textarea id="issue" placeholder="Describe your issue..."></textarea>
+  <button onclick="submitTicket()">Submit Ticket</button>
+  <pre id="status"></pre>
+
+  <h3>Admin: View Tickets</h3>
+  <input id="apiKey" type="password" placeholder="Admin API Key" />
+  <button onclick="loadTickets()">Load Tickets</button>
+  <pre id="tickets"></pre>
+
+  <script>
+    async function submitTicket() {
+      const res = await fetch('/tickets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('name').value,
+          issue: document.getElementById('issue').value
+        })
+      });
+      document.getElementById('status').textContent = JSON.stringify(await res.json(), null, 2);
+    }
+
+    async function loadTickets() {
+      const res = await fetch('/tickets', {
+        headers: { 'Authorization': 'Bearer ' + document.getElementById('apiKey').value }
+      });
+      document.getElementById('tickets').textContent = JSON.stringify(await res.json(), null, 2);
+    }
+  </script>
+</body>
+</html>
